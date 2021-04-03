@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div>{{ first }} X {{ second }} = ?</div>
+        <form @submit="onSubmitForm">
+            <input type="text" ref="answer" v-model="value">
+            <button>입력</button>
+        </form>
+        <div id="result">{{ result }}</div>
+    </div>
+<script>
+    const app = new Vue({
+        el: '#root',
+        data: {
+            first: Math.ceil(Math.random() * 9),
+            second: Math.ceil(Math.random() * 9),
+            value: '',
+            result: '',
+        },
+        methods: {
+            onSubmitForm(event) {
+                // 이를 통해 form 의 기본적으로 하는 페이지 새로고침을 막는다
+                event.preventDefault()
+                if (this.first * this.second === parseInt(this.value)) {
+                    this.first = Math.ceil(Math.random() * 9)
+                    this.second = Math.ceil(Math.random() * 9),
+                    this.value = ''
+                    this.result = '정답'
+                    this.$refs.answer.focus()
+                } else {
+                    this.result = '땡'
+                }
+            },
+        },
+        mounted() {
+            this.$refs.answer.focus()
+        }
+    })
+</script>
+</body>
+</html>
