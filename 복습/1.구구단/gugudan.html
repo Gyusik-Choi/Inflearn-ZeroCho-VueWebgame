@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>구구단</title>
+</head>
+<body>
+    <div id="root">
+        <div>
+            {{ firstNum }} X {{ secondNum }} = ?
+        </div>
+        <form class="submit-form" @submit="onSubmitForm">
+            <input type=text ref="answer" v-model="inputNum">
+            <button>입력</button>
+        </form>
+        <div>{{ result }}</div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#root",
+            data: function() {
+                return {
+                    firstNum: Math.ceil(Math.random() * 9),
+                    secondNum: Math.ceil(Math.random() * 9),
+                    inputNum: '',
+                    result: '',
+                }
+            },
+            methods: {
+                onSubmitForm(e) {
+                    e.preventDefault()
+                    if (this.firstNum * this.secondNum === parseInt(this.inputNum)) {
+                        this.result = '정답입니다'
+                        this.inputNum = ''
+                        this.firstNum = Math.floor(Math.random() * 10)
+                        this.secondNum = Math.floor(Math.random() * 10)
+                    } else {
+                        this.result = '틀렸습니다'
+                    }
+                }
+            },
+            mounted() {
+                this.$refs.answer.focus()
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>끝말잇기</title>
+</head>
+<body>
+    <div id="root">
+        <div>{{ word }}</div>
+        <input type="text" v-model="myWord" @keypress.enter="checkWord" />
+        <div>{{ result }}</div>
+    </div>
+    <script>
+        const app = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    word: '에반유',
+                    myWord: '',
+                    result: '',
+                }
+            },
+            methods: {
+                checkWord() {
+                    if (this.myWord.length > 1) { 
+                         if (this.word[this.word.length - 1] === this.myWord[0]) {
+                             this.result = '정답입니다'
+                             this.word = this.myWord
+                             this.myWord = ''
+                         } else {
+                             this.result = '오답입니다'
+                         }
+                    } else {
+                        this.result = '글자수를 확인해주세요'
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
